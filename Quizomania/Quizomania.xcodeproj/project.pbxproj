@@ -14,6 +14,7 @@
 		252089A71CEC5F1B009717CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 252089A61CEC5F1B009717CD /* Assets.xcassets */; };
 		252089AA1CEC5F1B009717CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 252089A81CEC5F1B009717CD /* LaunchScreen.storyboard */; };
 		252089B21CEC6ABE009717CD /* RestConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252089B11CEC6ABE009717CD /* RestConnection.swift */; };
+		262E30AA1CF312BF0072FFD5 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262E30A91CF312BF0072FFD5 /* QuestionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		252089A91CEC5F1B009717CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		252089AB1CEC5F1B009717CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		252089B11CEC6ABE009717CD /* RestConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestConnection.swift; sourceTree = "<group>"; };
+		262E30A91CF312BF0072FFD5 /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				252089AB1CEC5F1B009717CD /* Info.plist */,
 				252089A31CEC5F1B009717CD /* Quizomania.xcdatamodeld */,
 				252089B11CEC6ABE009717CD /* RestConnection.swift */,
+				262E30A91CF312BF0072FFD5 /* QuestionModel.swift */,
 			);
 			path = Quizomania;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				252089B21CEC6ABE009717CD /* RestConnection.swift in Sources */,
 				2520899F1CEC5F1B009717CD /* ViewController.swift in Sources */,
 				2520899D1CEC5F1B009717CD /* AppDelegate.swift in Sources */,
+				262E30AA1CF312BF0072FFD5 /* QuestionModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +301,7 @@
 				252089B01CEC5F1B009717CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

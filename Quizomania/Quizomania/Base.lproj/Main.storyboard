@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Quizomania" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Quizomania" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -35,7 +35,7 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="O69-lf-WgL" kind="show" id="49U-I1-vpo"/>
+                                    <segue destination="O69-lf-WgL" kind="show" identifier="segueQuestions" id="49U-I1-vpo"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2E-jU-FaR">
@@ -72,15 +72,18 @@
                             <constraint firstAttribute="trailing" secondItem="U2E-jU-FaR" secondAttribute="trailing" id="zuI-aO-Bn5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="username" destination="yVc-7K-LyW" id="h55-sO-1ti"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="245" y="305"/>
         </scene>
-        <!--View Controller-->
+        <!--Select Category View Controller-->
         <scene sceneID="RuB-WG-Y5a">
             <objects>
-                <viewController id="O69-lf-WgL" sceneMemberID="viewController">
+                <viewController id="O69-lf-WgL" customClass="SelectCategoryViewController" customModule="Quizomania" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g1A-Ot-dQJ"/>
                         <viewControllerLayoutGuide type="bottom" id="7yD-PF-UzO"/>
@@ -98,7 +101,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
-                                    <segue destination="iyb-HX-Wce" kind="show" id="j6J-oh-JIQ"/>
+                                    <segue destination="iyb-HX-Wce" kind="show" identifier="segueQuiz" id="j6J-oh-JIQ"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2lJ-Uh-2PF">
@@ -135,6 +138,10 @@
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ary-N3-7WI">
                                 <rect key="frame" x="20" y="229" width="560" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="k55-rf-WFx" id="6om-Jk-s7V"/>
+                                    <outlet property="delegate" destination="k55-rf-WFx" id="oIb-AT-fei"/>
+                                </connections>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.92156862745098034" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
@@ -152,15 +159,18 @@
                             <constraint firstItem="2lJ-Uh-2PF" firstAttribute="top" secondItem="jq8-8G-vQn" secondAttribute="bottom" constant="8" id="yQp-MW-rDC"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="categoryPicker" destination="Ary-N3-7WI" id="rUH-iO-tkn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fmF-p6-x2v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="934" y="305"/>
         </scene>
-        <!--View Controller-->
+        <!--Quiz View Controller-->
         <scene sceneID="a80-Oq-GXR">
             <objects>
-                <viewController id="iyb-HX-Wce" sceneMemberID="viewController">
+                <viewController id="iyb-HX-Wce" customClass="QuizViewController" customModule="Quizomania" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3NR-p6-Ma0"/>
                         <viewControllerLayoutGuide type="bottom" id="e16-D3-Ijq"/>

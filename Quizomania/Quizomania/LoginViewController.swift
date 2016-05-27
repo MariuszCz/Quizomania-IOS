@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
+class LoginViewController: UIViewController {
+    
+    @IBOutlet weak var username: UITextField!
+        var arrayOfDicts: [Dictionary<String, AnyObject>] = []
+        override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view, typically from a nib.
             let urlString = "http://jservice.io/api/clues"
         let session = NSURLSession.sharedSession()
@@ -22,39 +26,30 @@ class ViewController: UIViewController {
                 
                 do {
                     let json = try NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments)
-                    print(json)
-                    if let  arrayOfDicts = json as? [Dictionary<String, AnyObject>] {
-                        
-                        for question in arrayOfDicts {
-                            print(question["question"])
-                        }
-                        
-//                        if let question = dict["question"] as? String, let answer = dict["answer"] as? String, let categoryId = dict["category_id"] as? String {
-//                            let questionBody = QuestionModel(question: question, answer: answer, categoryId: categoryId)
-//                            
-//                            print(questionBody.question)
-//                            print(questionBody.answer)
-//                            print(questionBody.categoryId)
-//                 
-//                        }
-                        
-                    }
-                    
-                    // print(json)
+
+                    self.arrayOfDicts = json as! [Dictionary<String, AnyObject>]
+
                 } catch let err as NSError {
                     print(err.debugDescription)
                 }
             }
             }.resume()
+
+
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "segueQuestions") {
+            let svc = segue.destinationViewController as! SelectCategoryViewController
+            svc.arrayOfDicts = self.arrayOfDicts
+      
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 
 
 }

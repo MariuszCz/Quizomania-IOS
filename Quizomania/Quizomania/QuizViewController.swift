@@ -10,7 +10,7 @@ import UIKit
 class QuizViewController: UIViewController {
         var arrayOfDicts: [Dictionary<String, AnyObject>] = []
         var selected: String!
-    override func viewDidLoad() {
+        override func viewDidLoad() {
         super.viewDidLoad()
 
         if(selected != nil) {

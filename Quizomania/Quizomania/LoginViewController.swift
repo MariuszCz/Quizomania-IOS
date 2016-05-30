@@ -12,28 +12,11 @@ import CoreData
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var username: UITextField!
-        var arrayOfDicts: [Dictionary<String, AnyObject>] = []
-        override func viewDidLoad() {
+                override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view, typically from a nib.
-            let urlString = "http://jservice.io/api/clues"
-        let session = NSURLSession.sharedSession()
-        let url = NSURL(string: urlString)!
-        
-        session.dataTaskWithURL(url) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            if let responseData = data {
-                
-                do {
-                    let json = try NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments)
-
-                    self.arrayOfDicts = json as! [Dictionary<String, AnyObject>]
-
-                } catch let err as NSError {
-                    print(err.debugDescription)
-                }
-            }
-            }.resume()
+         
 
 
     }
@@ -41,7 +24,7 @@ class LoginViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "segueQuestions") {
             let svc = segue.destinationViewController as! SelectCategoryViewController
-            svc.arrayOfDicts = self.arrayOfDicts
+     //       svc.arrayOfDicts = self.arrayOfDicts
       
         }
     }

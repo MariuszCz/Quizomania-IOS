@@ -9,12 +9,17 @@
 import UIKit
 class QuizViewController: UIViewController {
         var arrayOfDicts: [Dictionary<String, AnyObject>] = []
-        var selected: String!
+        var question: String!
+        var answer: String!
         override func viewDidLoad() {
         super.viewDidLoad()
 
-        if(selected != nil) {
-        print(selected!)
+        if(question != nil) {
+            questionTextView.text = question
+            answerA.setTitle(answer, forState: .Normal)
         }
     }
+    
+    @IBOutlet weak var questionTextView: UITextView!
+    @IBOutlet weak var answerA: UIButton!
 }

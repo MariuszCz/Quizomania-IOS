@@ -21,13 +21,13 @@ class LoginViewController: UIViewController {
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if (segue.identifier == "segueQuestions") {
-            let svc = segue.destinationViewController as! SelectCategoryViewController
-     //       svc.arrayOfDicts = self.arrayOfDicts
-      
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+//        if (segue.identifier == "segueQuestions") {
+//            let svc = segue.destinationViewController as! SelectCategoryViewController
+//     //       svc.arrayOfDicts = self.arrayOfDicts
+//      
+//        }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

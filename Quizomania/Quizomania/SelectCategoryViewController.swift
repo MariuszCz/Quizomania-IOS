@@ -10,8 +10,11 @@ import UIKit
 class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var categoryPicker: UIPickerView!
-    var arrayOfDicts: [Dictionary<String, AnyObject>] = []
-    var selected: String!
+    var arrayOfCategories: [Dictionary<String, AnyObject>] = []
+        var arrayOfQuestions: [Dictionary<String, AnyObject>] = []
+    var question: String!
+    var answer: String!
+    var selected: String! = ""
     
     typealias DownloadComplete = () -> ()
     
@@ -20,12 +23,19 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
         super.viewDidLoad()
         self.categoryPicker.dataSource = self
         self.categoryPicker.delegate = self
-        let urlString = "http://jservice.io/api/categories?count=100"
-        let session = NSURLSession.sharedSession()
+        let urlString = "http://jservice.io/api/clues"
+               let session = NSURLSession.sharedSession()
         let url = NSURL(string: urlString)!
+
         
         downloadCategories(url, session: session) { 
             self.categoryPicker.reloadAllComponents()
+        }
+        let urlQuestionsString = "http://jservice.io/api/clues?category=" + selected!
+        let urlQuestions = NSURL(string: urlQuestionsString)!
+        downloadQuestions(urlQuestions, session: session) {
+           
+            
         }
         
         //print(arrayOfDicts)
@@ -35,34 +45,37 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return arrayOfDicts.count;
+        return arrayOfCategories.count;
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-       
-        if let categoryDict = arrayOfDicts[row] as? Dictionary<String, AnyObject> {
-            
-            if let categoryName = categoryDict["title"] as? String {
-                return categoryName
+        
+            if let ar = arrayOfCategories[row]["category"] as? Dictionary<String,AnyObject> {
+                return "\(ar["title"]!)"
             }
+            return nil
             
         }
-        
-        return String()
-    }
+    
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        selected = "\(arrayOfDicts[row]["id"]!)"
+        self.selected = "\(arrayOfCategories[row]["category"]!["id"])"
+        let randomQuestion = Int(arc4random_uniform(UInt32(self.arrayOfQuestions.count)))
+        self.question = String(self.arrayOfQuestions[randomQuestion]["question"]!)
+        self.answer = String(self.arrayOfQuestions[randomQuestion]["answer"]!)
+        print(randomQuestion)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "segueQuiz") {
             let quiz = segue.destinationViewController as! QuizViewController
-            quiz.arrayOfDicts = self.arrayOfDicts
-            quiz.selected = self.selected
+            quiz.question = self.question+" ?"
+            quiz.answer = self.answer
 
         }
     }
+    
+    
     
     func downloadCategories(url: NSURL ,session: NSURLSession ,completed: DownloadComplete) {
         
@@ -72,7 +85,7 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
                 do {
                     let json = try NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments)
                     
-                    self.arrayOfDicts = json as! [Dictionary<String, AnyObject>]
+                    self.arrayOfCategories = json as! [Dictionary<String, AnyObject>]
                     
                     //                    print(self.arrayOfDicts)
                     
@@ -85,4 +98,27 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
             }.resume()
         
     }
+    
+    func downloadQuestions(url: NSURL ,session: NSURLSession ,completed: DownloadComplete) {
+        
+        session.dataTaskWithURL(url) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            if let responseData = data {
+                
+                do {
+                    let json = try NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments)
+                    
+                    self.arrayOfQuestions = json as! [Dictionary<String, AnyObject>]
+                    
+                    //                    print(self.arrayOfDicts)
+                    
+                } catch let err as NSError {
+                    print(err.debugDescription)
+                }
+                completed()
+            }
+            
+            }.resume()
+        
+    }
+
 }

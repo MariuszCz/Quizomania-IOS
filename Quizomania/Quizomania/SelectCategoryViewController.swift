@@ -14,7 +14,8 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
         var arrayOfQuestions: [Dictionary<String, AnyObject>] = []
     var question: String!
     var answer: String!
-    var selected: String! = ""
+    var category: String!
+       var urlQuestionsString: String = ""
     
     typealias DownloadComplete = () -> ()
     
@@ -24,20 +25,14 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
         self.categoryPicker.dataSource = self
         self.categoryPicker.delegate = self
         let urlString = "http://jservice.io/api/clues"
-               let session = NSURLSession.sharedSession()
+        let session = NSURLSession.sharedSession()
         let url = NSURL(string: urlString)!
 
         
         downloadCategories(url, session: session) { 
             self.categoryPicker.reloadAllComponents()
-        }
-        let urlQuestionsString = "http://jservice.io/api/clues?category=" + selected!
-        let urlQuestions = NSURL(string: urlQuestionsString)!
-        downloadQuestions(urlQuestions, session: session) {
-           
-            
-        }
         
+                        }
         //print(arrayOfDicts)
     }
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -58,19 +53,26 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
         }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        self.selected = "\(arrayOfCategories[row]["category"]!["id"])"
-        let randomQuestion = Int(arc4random_uniform(UInt32(self.arrayOfQuestions.count)))
-        self.question = String(self.arrayOfQuestions[randomQuestion]["question"]!)
-        self.answer = String(self.arrayOfQuestions[randomQuestion]["answer"]!)
-        print(randomQuestion)
-    }
+ 
+        if let ar = arrayOfCategories[row]["category"] as? Dictionary<String,AnyObject> {
+
+            self.urlQuestionsString = "http://jservice.io/api/clues?category=" + "\(ar["id"]!)"
+            self.category = "\(ar["title"]!)"
+        }
+        let urlQuestions = NSURL(string: self.urlQuestionsString)
+        let session = NSURLSession.sharedSession()
+        self.downloadQuestions(urlQuestions!, session: session) {}
+
+            }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "segueQuiz") {
             let quiz = segue.destinationViewController as! QuizViewController
-            quiz.question = self.question+" ?"
-            quiz.answer = self.answer
+            quiz.arrayOfQuestions = self.arrayOfQuestions
+            quiz.category = category
+
+        
+
 
         }
     }

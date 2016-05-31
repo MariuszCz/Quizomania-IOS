@@ -186,8 +186,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Vid-2E-O7f">
-                                <rect key="frame" x="20" y="61" width="560" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Vid-2E-O7f">
+                                <rect key="frame" x="20" y="111" width="560" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="rob-ev-Vq6"/>
@@ -310,6 +310,12 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K16-kZ-x8i">
+                                <rect key="frame" x="240" y="82" width="118" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -321,13 +327,17 @@
                             <constraint firstItem="Kqh-nO-3nu" firstAttribute="top" secondItem="3NR-p6-Ma0" secondAttribute="bottom" id="F4L-dS-EM0"/>
                             <constraint firstItem="7ZV-Ds-sgn" firstAttribute="leading" secondItem="CuJ-hr-DEX" secondAttribute="leadingMargin" id="Lmj-dj-lLM"/>
                             <constraint firstItem="Vid-2E-O7f" firstAttribute="trailing" secondItem="CuJ-hr-DEX" secondAttribute="trailingMargin" id="Rp9-3o-2Ow"/>
-                            <constraint firstItem="7ZV-Ds-sgn" firstAttribute="top" secondItem="Vid-2E-O7f" secondAttribute="bottom" constant="75" id="XLE-5i-Ayf"/>
+                            <constraint firstItem="7ZV-Ds-sgn" firstAttribute="top" secondItem="Vid-2E-O7f" secondAttribute="bottom" constant="50" id="XLE-5i-Ayf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7ZV-Ds-sgn" secondAttribute="trailing" id="Yev-gn-XeD"/>
-                            <constraint firstItem="Vid-2E-O7f" firstAttribute="top" secondItem="Kqh-nO-3nu" secondAttribute="bottom" constant="20" id="lWr-1e-kGK"/>
+                            <constraint firstItem="Vid-2E-O7f" firstAttribute="top" secondItem="Kqh-nO-3nu" secondAttribute="bottom" constant="26" id="lWr-1e-kGK"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="answerA" destination="PUe-Bh-xR7" id="IAH-w7-OXS"/>
+                        <outlet property="answerB" destination="V6H-i5-Don" id="hPA-tM-Q6A"/>
+                        <outlet property="answerC" destination="i67-3c-Vti" id="hD6-k0-uFN"/>
+                        <outlet property="answerD" destination="Q34-IR-hAo" id="mv4-kc-OiP"/>
+                        <outlet property="categoryLabel" destination="K16-kZ-x8i" id="9Ou-f8-h1Q"/>
                         <outlet property="questionTextView" destination="Vid-2E-O7f" id="UdL-rl-9Iy"/>
                     </connections>
                 </viewController>

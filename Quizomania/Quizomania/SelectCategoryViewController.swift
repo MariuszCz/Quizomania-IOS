@@ -11,12 +11,11 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
     
     @IBOutlet weak var categoryPicker: UIPickerView!
     var arrayOfCategories: [Dictionary<String, AnyObject>] = []
-        var arrayOfQuestions: [Dictionary<String, AnyObject>] = []
+    var arrayOfQuestions: [Dictionary<String, AnyObject>] = []
     var question: String!
     var answer: String!
     var category: String!
-       var urlQuestionsString: String = ""
-    
+    var urlQuestionsString: String = ""
     typealias DownloadComplete = () -> ()
     
     
@@ -118,7 +117,6 @@ class SelectCategoryViewController: UIViewController, UIPickerViewDataSource, UI
                 }
                 completed()
             }
-            
             }.resume()
         
     }

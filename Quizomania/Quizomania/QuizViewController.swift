@@ -7,29 +7,57 @@
 //
 
 import UIKit
+import CoreData
 class QuizViewController: UIViewController {
-        var arrayOfDicts: [Dictionary<String, AnyObject>] = []
-        var arrayOfQuestions: [Dictionary<String, AnyObject>] = []
-        var category: String!
-        var question: String!
-        var answer: String!
-        var randomCorrect: Int!
-        var numberOfTrials: Int! = 0
-        var scores: Int! = 0
-        override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    
+    @IBOutlet weak var scoresLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var questionTextView: UITextView!
+    
+    @IBOutlet weak var answerA: UIButton!
+    @IBOutlet weak var answerB: UIButton!
+    @IBOutlet weak var answerC: UIButton!
+    @IBOutlet weak var answerD: UIButton!
+    
+    var arrayOfDicts: [Dictionary<String, AnyObject>] = []
+    var arrayOfQuestions: [Dictionary<String, AnyObject>] = []
+    var category: String!
+    var username: String!
+    var question: String!
+    var answer: String!
+    var randomCorrect: Int!
+    var numberOfTrials: Int! = 0
+    var scores: Int! = 0
+    var managedObjectContext: NSManagedObjectContext! = nil
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+ 
         getRandomQuestion()
         setQuestionAndCategoryText()
-
-            
+    
+        managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
         if parent == nil {
-           
-           }
+           saveUserName()
         }
+    }
+    
+    func saveUserName() {
+        let entityDescription =
+            NSEntityDescription.entityForName("Person",
+                               inManagedObjectContext: managedObjectContext)
+        
+        let person = Person(entity: entityDescription!,
+                               insertIntoManagedObjectContext: managedObjectContext)
+        
+        person.username = username
+        person.best_score = scores
+        print("saved \(person.username)")
+    }
     
     func setQuestionAndCategoryText() {
         if(question != nil) {
@@ -38,6 +66,7 @@ class QuizViewController: UIViewController {
             categoryLabel.text = category
         }
     }
+    
     func setAnswersText() {
         randomCorrect = getRandomCorrectAnswer()
         if(randomCorrect == 0) {
@@ -61,8 +90,8 @@ class QuizViewController: UIViewController {
         let randomQuestion = Int(arc4random_uniform(UInt32(self.arrayOfQuestions.count)))
         self.question = String(self.arrayOfQuestions[randomQuestion]["question"]!)
         self.answer = String(self.arrayOfQuestions[randomQuestion]["answer"]!)
-
     }
+    
     func getRandomCorrectAnswer() -> Int! {
         return Int(arc4random_uniform(UInt32(4)))
     }
@@ -81,6 +110,7 @@ class QuizViewController: UIViewController {
             answerA.backgroundColor = UIColor.redColor()
         }
     }
+    
     @IBAction func onAnswerBClicked(sender: AnyObject) {
         numberOfTrials = numberOfTrials + 1
         if(randomCorrect == 1) {
@@ -90,6 +120,7 @@ class QuizViewController: UIViewController {
             answerB.backgroundColor = UIColor.redColor()
         }
     }
+    
     @IBAction func onAnswerCClicked(sender: AnyObject) {
         numberOfTrials = numberOfTrials + 1
         if(randomCorrect == 2) {
@@ -99,6 +130,7 @@ class QuizViewController: UIViewController {
             answerC.backgroundColor = UIColor.redColor()
         }
     }
+    
     @IBAction func onAnswerDClicked(sender: AnyObject) {
         numberOfTrials = numberOfTrials + 1
         if(randomCorrect == 3) {
@@ -129,14 +161,4 @@ class QuizViewController: UIViewController {
         answerC.backgroundColor = UIColor.clearColor()
         answerD.backgroundColor = UIColor.clearColor()
     }
-
-
-    @IBOutlet weak var scoresLabel: UILabel!
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var questionTextView: UITextView!
-
-    @IBOutlet weak var answerA: UIButton!
-    @IBOutlet weak var answerB: UIButton!
-    @IBOutlet weak var answerC: UIButton!
-    @IBOutlet weak var answerD: UIButton!
 }
